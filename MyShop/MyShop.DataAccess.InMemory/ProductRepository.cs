@@ -32,28 +32,39 @@ namespace MyShop.DataAccess.InMemory
         public void Update(Product product) 
         {
             Product productToUpdate = produts.Find(p => p.Id == product.Id);
-            if (productToUpdate == null)
+            if (productToUpdate != null)
                 productToUpdate = product;
             else
+            {
                 throw new Exception("Product not found");
+            }
         }
 
         public Product Find(string Id)
         {
             Product product = produts.Find(p => p.Id == Id);
-            if (product == null)
+            if (product != null)
                 return product;
             else
+            {
                 throw new Exception("Product not found");
+            }
+        }
+
+        public IQueryable<Product> Collection()
+        {
+            return produts.AsQueryable();
         }
 
         public void Delete(string Id)
         {
             Product productToDelete = produts.Find(p => p.Id == Id);
-            if (productToDelete == null)
+            if (productToDelete != null)
                 produts.Remove(productToDelete);
             else
                 throw new Exception("Product not found");
         }
+
+
     }
 }
